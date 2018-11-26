@@ -79,7 +79,12 @@ heuristicsOnPowerOfTwo := function(exponent)
         SL2Level := isLevelSl2(grpSl2AtLevel, level);
         if isLevelGl2(grp, level) then
           print "Counterexample found";
-
+          Write("example" * ".txt","Example Found");
+          Write("example" * ".txt","\n");
+          Write("example" * ".txt","level ");
+          Write("example" * ".txt",SL2Level);
+          Write("example" * ".txt","\n");
+          Write("example" * ".txt",grp);
           print "level ", SL2Level, grp;
 
           count := count + 1;
