@@ -14,7 +14,7 @@ hasConditonFive := function(group, level)
   for i in [0..level] do Append(~Trace_Attendence,0); end for;
 
   for element in group do
-    trace := element[1][1] + element[1][2] + element[2][1] + element[2][2];
+    trace := element[1][1] +  element[2][2];
     trace := RTI(trace) + 1;
     if Trace_Attendence[trace] eq 0 then
       if (RTI(element[1][1]) mod 2) ne 1 or
@@ -35,7 +35,7 @@ hasFullTrace := function(group,level)
 
   trace_count := 0;
   for element in group do
-    trace := element[1][1] + element[1][2] + element[2][1] + element[2][2];
+    trace := element[1][1] + element[2][2];
     trace := RTI(trace) + 1;
     if Trace_Attendence[trace] eq 0 then
       trace_count := trace_count + 1;
