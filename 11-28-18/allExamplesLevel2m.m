@@ -1,7 +1,28 @@
 load "neededFunctions.m";
 
+isLevelGl2 := function(G,level)
+  divs:=Divisors(level);
+  gen:=Generators(G);
+
+  if #G eq #GL(2,Integers(level)) then return false; end if;
+
+  Result:=true;
+  for n in divs do
+    if n eq level or n eq 1 then continue; end if;
+
+    temp_gens:=[];
+    for g in gen do
+      Append(~temp_gens,elt<GL(2,Integers(n)) | RTI(g[1][1]), RTI(g[1][2]), RTI(g[2][1]),RTI(g[2][2])>);
+    end for;
+
+    temp_G:=sub<GL(2,Integers(n))|temp_gens>;
+    if #G/#temp_G eq #GL(2,Integers(level))/#GL(2,Integers(level)) then Result:=false; end if;
+
+  end for;
+  return Result;
+end function;
+
 isLevelSl2 := function(G,level)
-  saveFile:= "112918.txt"
   divs:=Divisors(level);
 	gen:=Generators(G);
 
@@ -50,6 +71,7 @@ hasFullTrace := function(group,level)
   return false;
 end function;
 heuristicsOnPowerOfTwo := function(exponent)
+  saveFile:= "11-28-18/112918.txt";
   level := 2^exponent;
 
   GL2:=GL(2,Integers(level));
@@ -62,15 +84,14 @@ heuristicsOnPowerOfTwo := function(exponent)
     for grp_ in subgroups do
       grp := grp_`subgroup;
       Det_Count:=countDet(grp,level);
-      hasFullTrace:=hasFullTrace(grp,level);
+      subgroupHasFullTrace:=hasFullTrace(grp,level);
       //print Det_Count, Trace_Count;
 
-      if Det_Count eq EulerPhi(level) and hasFullTrace eq 1 then
+      if Det_Count eq EulerPhi(level) and subgroupHasFullTrace  then
 
         grpSl2AtLevel := grp meet SL2;
-        grpSl2AtLowerLevel := projectToLevel(grpSl2AtLevel, 2^(exponent-1));
         SL2Level := isLevelSl2(grpSl2AtLevel, level);
-        if isLevelGl2(grp, level) then
+        if isLevelGl2(grp, level) and SL2Level lt 2^(exponent-1) then
           print "Counterexample found";
           Write(saveFile,"Example Found");
           Write(saveFile,"*************************");
@@ -78,7 +99,6 @@ heuristicsOnPowerOfTwo := function(exponent)
           Write(saveFile,SL2Level);
           Write(saveFile,"\n");
           Write(saveFile,grp);
-          Write(saveFile,grpSl2AtLowerLevel);
           print "level ", SL2Level, grp;
 
           count := count + 1;
@@ -91,3 +111,5 @@ heuristicsOnPowerOfTwo := function(exponent)
   return count;
 
 end function;
+
+for i in [3..5] do heuristicsOnPowerOfTwo(i); end for;
