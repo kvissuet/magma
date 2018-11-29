@@ -1,6 +1,6 @@
 
 RTI:= function(x)
-    for a in [1..100000] do
+    for a in [0..100000] do
         if a eq x then
             return a;
         end if;
@@ -103,7 +103,7 @@ Number_of_Traces:=function(G,A)
     return result;
 end function;
 
-isFullTraceAndNew:=function(G,A)
+isMissingTraceAndNew:=function(G,A)
     Trace_Count:=0;
    	divs:=Divisors(A);
    	dict:=AssociativeArray();

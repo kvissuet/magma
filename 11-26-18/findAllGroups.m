@@ -11,7 +11,7 @@ load "neededFunctions.m";
 // 6) Is SL2 new of level n
 hasConditonFive := function(group, level)
   Trace_Attendence := [];
-  for i in [0..level] do Append(~Trace_Attendence,0); end for;
+  for i in [0..(level-1)] do Append(~Trace_Attendence,0); end for;
 
   for element in group do
     trace := element[1][1] +  element[2][2];
@@ -31,7 +31,7 @@ end function;
 
 hasFullTrace := function(group,level)
   Trace_Attendence := [];
-  for i in [0..level] do Append(~Trace_Attendence,0); end for;
+  for i in [0..(level-1)] do Append(~Trace_Attendence,0); end for;
 
   trace_count := 0;
   for element in group do
@@ -73,7 +73,7 @@ can:=function(n)
   Write("11-26-18/results.txt", "Result for level:");
   Write("11-26-18/results.txt", n);
 	GL2:=GL(2,Integers(n));
-  divisors := Divisors(n);
+  divisors := Divisors(#GL2);
   for divisor in divisors do
     if divisor eq n then continue; end if;
     subgroupsOfGl2 := Subgroups(GL2: IndexEqual:=divisor);
@@ -84,7 +84,7 @@ can:=function(n)
       //Next 4 condtionals weeds out groups that do not satisfy what is needed
       //Check Condition 6
       grpSl2AtLevel := subgroup meet SL(2, Integers(n));
-      if isLevelSl2(grpSl2AtLevel, n) eq n then continue subgroup_; end if;
+      if isLevelSl2(grpSl2AtLevel, n) lt n then continue subgroup_; end if;
 
 
       //Checks condition 4
@@ -101,14 +101,17 @@ can:=function(n)
 
 
       Write("11-26-18/results.txt", subgroup);
+
     end for;
   end for;
+  Write("11-26-18/results.txt", "Function Done For level");
+  Write("11-26-18/results.txt", n);
   return "function ran successfully";
 end function;
 
-all_even_levels:=function()
+all_even_levels:=function(:levels:=[2..48])
   Write("11-26-18/results.txt", "Results:");
-  for level in [2..48] do
+  for level in levels do
     if level mod 2 eq 1 then continue; end if;
     can(level);
   end for;

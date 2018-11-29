@@ -387,3 +387,57 @@ Function Done For level
 ********************************
 Result for level:
 16
+Function Done For level
+16
+********************************
+Result for level:
+18
+MatrixGroup(2, IntegerRing(18)) of order 2^2 * 3^5
+Generators:
+    [ 1  0]
+    [ 0 17]
+
+    [ 1  0]
+    [ 0 13]
+
+    [ 7  8]
+    [12  1]
+
+    [ 8  9]
+    [ 9 17]
+
+    [17  0]
+    [ 0 17]
+
+    [ 7  0]
+    [ 0 13]
+
+    [13 12]
+    [ 0  7]
+MatrixGroup(2, IntegerRing(18)) of order 2^3 * 3^4
+Generators:
+    [ 1  0]
+    [ 0 17]
+
+    [ 9  5]
+    [16  9]
+
+    [ 1  0]
+    [ 0 13]
+
+    [ 8 15]
+    [15 17]
+
+    [17  0]
+    [ 0 17]
+
+    [ 7  0]
+    [ 0 13]
+
+    [1 6]
+    [6 1]
+Function Done For level
+18
+********************************
+Result for level:
+20
