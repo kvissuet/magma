@@ -145,3 +145,64 @@ Add_neg_id:=function(G,A)
     end if;
     return G12;
 end function;
+
+hasFullTrace := function(group,level)
+  Trace_Attendence := [];
+  for i in [0..(level-1)] do Append(~Trace_Attendence,0); end for;
+
+  trace_count := 0;
+  for element in group do
+    trace := element[1][1] + element[2][2];
+    trace := RTI(trace) + 1;
+    if Trace_Attendence[trace] eq 0 then
+      trace_count := trace_count + 1;
+      if trace_count eq level then return true; end if;
+      Trace_Attendence[trace] :=1;
+    end if;
+  end for;
+  return false;
+end function;
+
+computeLevelGl2 := function(G,level)
+  divs:=Divisors(level);
+	gen:=Generators(G);
+
+	if #G eq #GL(2,Integers(level)) then return 1; end if;
+
+	Result:=level;
+	for n in divs do
+		if n eq level or n eq 1 then continue; end if;
+
+		temp_gens:=[];
+		for g in gen do
+			Append(~temp_gens,elt<GL(2,Integers(n)) | RTI(g[1][1]), RTI(g[1][2]), RTI(g[2][1]),RTI(g[2][2])>);
+		end for;
+
+		temp_G:=sub<GL(2,Integers(n))|temp_gens>;
+		if #G/#temp_G eq #GL(2,Integers(level))/#GL(2,Integers(n)) then Result:=Min(Result,n); end if;
+
+	end for;
+	return Result;
+end function;
+
+computeLevelSl2 := function(G,level)
+  divs:=Divisors(level);
+	gen:=Generators(G);
+
+	if #G eq #SL(2,Integers(level)) then return 1; end if;
+
+	Result:=level;
+	for n in divs do
+		if n eq level or n eq 1 then continue; end if;
+
+		temp_gens:=[];
+		for g in gen do
+			Append(~temp_gens,elt<SL(2,Integers(n)) | RTI(g[1][1]), RTI(g[1][2]), RTI(g[2][1]),RTI(g[2][2])>);
+		end for;
+
+		temp_G:=sub<SL(2,Integers(n))|temp_gens>;
+		if #G/#temp_G eq #SL(2,Integers(level))/#SL(2,Integers(n)) then Result:=Min(Result,n); end if;
+
+	end for;
+	return Result;
+end function;

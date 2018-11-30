@@ -117,3 +117,20 @@ all_even_levels:=function(:levels:=[2..48])
   end for;
   return 0;
 end function;
+
+hasFullTrace := function(group,level)
+  Trace_Attendence := [];
+  for i in [0..(level-1)] do Append(~Trace_Attendence,0); end for;
+
+  trace_count := 0;
+  for element in group do
+    trace := element[1][1] + element[2][2];
+    trace := RTI(trace) + 1;
+    if Trace_Attendence[trace] eq 0 then
+      trace_count := trace_count + 1;
+      if trace_count eq level then return true; end if;
+      Trace_Attendence[trace] :=1;
+    end if;
+  end for;
+  return false;
+end function;

@@ -91,7 +91,7 @@ heuristicsOnPowerOfTwo := function(exponent)
 
         grpSl2AtLevel := grp meet SL2;
         SL2Level := isLevelSl2(grpSl2AtLevel, level);
-        if isLevelGl2(grp, level) and SL2Level lt 2^(exponent-1) then
+        if isLevelGl2(grp, level) and SL2Level lt 2^(exponent) then
           print "Counterexample found";
           Write(saveFile,"Example Found");
           Write(saveFile,"*************************");
