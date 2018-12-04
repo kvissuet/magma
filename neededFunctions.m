@@ -120,14 +120,14 @@ isMissingTraceAndNew:=function(G,A)
 
     end for;
 
-    Result:=1;
+    Result:=true;
     for x in divs do
     	if x eq 1 or x eq A then continue; end if;
 
-    	if #dict[x] lt x then Result:=0; end if;
+    	if #dict[x] lt x then Result:=false; end if;
     end for;
 
-    if #dict[A] eq A then Result:=0; end if;
+    if #dict[A] eq A then Result:=false; end if;
 
  	  return Result;
 end function;
